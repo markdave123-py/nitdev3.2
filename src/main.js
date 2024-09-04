@@ -1,10 +1,10 @@
 import express from "express";
 import { users} from "./users.js";
 import fs from "fs";
+import { config } from "./config/env.js";
+import { createUserTable } from "./user/user.model.js";
 
 const app = express();
-
-const port = 3200;
 
 app.use(express.json());
 
@@ -96,7 +96,8 @@ app.post("/signup",validateEmail, validateUsername, (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.listen(config.port, () => {
   // const content = fs.readFileSync("/Users/mac/nitdev3.2/src/fsRead.txt", "utf-8");
-  console.log(`server is running on http://localhost:${port}`);
+  createUserTable();
+  console.log(`server is running on http://localhost:${config.port}`);
 });
